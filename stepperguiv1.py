@@ -33,7 +33,7 @@ def getBauteil():
     label3.grid(row=5, column=4)
 
 def motorSpeed():
-    if var != 0:
+    if steps != 0:
         FastSpeed = options[steps.get()]
         global fSpeed
         fSpeed = FastSpeed / 2
@@ -69,7 +69,8 @@ class MotorConfig:
     GPIO.setup(Step, GPIO.OUT)
     GPIO.setup(Enable, GPIO.OUT)
     GPIO.output(Enable, GPIO.HIGH)
-    convertedstep = int(steps)
+    stepsgetter = options[steps.get()]
+    convertedstep = int(stepsgetter)
 
     while True:
         print("Move Up")
