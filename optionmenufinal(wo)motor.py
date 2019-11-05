@@ -1,6 +1,7 @@
 # coding=utf-8
 import tkinter as tk
 
+
 master = tk.Tk()
 
 #FastSpeed = 0.001  # default Speed
@@ -9,10 +10,10 @@ var = tk.StringVar(master)
 var2 = tk.IntVar(master)
 fSpeed = tk.StringVar(master)
 
-labelZero = tk.Label(master, text="Smart Spray Booth - Configuration")
-labelZero.grid(row=1, column=1)
+labelZero = tk.Label(master, text="Smart Spray Booth - Configuration", anchor='center')
+labelZero.grid(row=1)
 labelPreset = tk.Label(master, text="Presets:")
-labelPreset.grid(row=2, column=1)
+labelPreset.grid(row=3, column=1)
 
 
 options = {"10cm": 10*1600, "20cm": 20*1600, "30cm": 30*1600, "40cm": 40*1600, "50cm": 50*1600}
@@ -25,7 +26,7 @@ def getBauteil():
     motorSpeed()
     # master.quit()
     label4 = tk.Label(master, text=options[var.get()])
-    label4.grid(row=5, column=4)
+    label4.grid(row=5, column=2)
     print(stepperaction())
 
 def motorSpeed():
@@ -39,18 +40,20 @@ def motorSpeed():
         return FastSpeed
         return fSpeed
     label3 = tk.Label(master, text=options[var.get()])
-    label3.grid(row=5, column=5)
+    label3.grid(row=5, column=3)
 
 button = tk.Button(master, text="OK", command=getBauteil)
 button.grid(row=3, column=3)
 
 label1 = tk.Label(master, textvariable=var)
-label1.grid(row=5, column=3)
+label1.grid(row=5, column=1)
 
+labela = tk.Label(master, text="bla")
+labela.grid(row=5, column=1)
 
 master.title("Smart Spray Booth - Configuration")
 master.configure(bg="grey80")
-master.geometry("300x300")
+master.geometry("400x300")
 
 
 def stepperaction():
