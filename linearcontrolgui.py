@@ -29,7 +29,7 @@ def getBauteil():
     label4 = tk.Label(master, text=options[var.get()])
     label4.grid(row=5, column=4)
     #print(stepperaction())
-    stepperaction() #holt die function stepperaction
+    stepperaction() #holt die function stepperaction, verhindert dann jedoch, dass label 3 angezeigt wird
 
 def motorSpeed():
     if var != 0:
@@ -43,7 +43,7 @@ def motorSpeed():
         return fSpeed
     label3 = tk.Label(master, text=options[var.get()])
     label3.grid(row=5, column=5)
-
+      
 button = tk.Button(master, text="OK", command=getBauteil)
 button.grid(row=3, column=3)
 
