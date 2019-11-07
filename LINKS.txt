@@ -19,3 +19,8 @@ Once you have created a GUI and want to export it to the python code you need to
 pyuic5 –x "filename".ui –o "filename".py
 
 Now you should see a file in that same directory as your .ui file that is "filename.py". You can open this and see that it contains the code used to create the GUI you made with drag and drop.
+
+
+https://doc.qt.io/qt-5/qcombobox.html
+https://doc.qt.io/qt-5/qcombobox.html#itemData
+https://doc.qt.io/qt-5/qcombobox.html#setItemData
