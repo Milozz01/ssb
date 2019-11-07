@@ -1,0 +1,4 @@
+
+https://www.youtube.com/watch?v=Vde5SH8e1OQ
+https://techwithtim.net/tutorials/pyqt5-tutorial/basic-gui-application/
+https://build-system.fman.io/qt-designer-download
