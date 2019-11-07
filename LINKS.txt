@@ -4,3 +4,18 @@ https://www.youtube.com/watch?v=Vde5SH8e1OQ
 https://techwithtim.net/tutorials/pyqt5-tutorial/basic-gui-application/
 https://build-system.fman.io/qt-designer-download
 https://www.youtube.com/watch?v=FVpho_UiDAY
+
+
+Exporting Your GUI
+
+Once you have created a GUI and want to export it to the python code you need to follow the steps below.
+
+1. Save your work somewhere you can find it (you'll notice it saves as a .ui file).
+
+2. Open up a command prompt window in that location.
+
+3. Run the following:
+
+pyuic5 –x "filename".ui –o "filename".py
+
+Now you should see a file in that same directory as your .ui file that is "filename.py". You can open this and see that it contains the code used to create the GUI you made with drag and drop.
