@@ -3,7 +3,7 @@
 
 import time
 import sys
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QVariant, QSize
 from PyQt5.QtGui import QImage, QPalette, QBrush
@@ -45,7 +45,7 @@ class Ui_mainWindow(object):
         self.label.setObjectName("label")
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
         self.progressBar.setGeometry(QtCore.QRect(20, 250, 118, 23))
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(270, 40, 75, 23))
@@ -111,9 +111,10 @@ class Ui_mainWindow(object):
         print("wird auf null gesetzt")
 
     def stepperaction(self, index):
-        # GPIO.setmode(GPIO.BOARD)  # read the pin as board instead of BCM pin
+        GPIO.setmode(GPIO.BOARD)  # read the pin as board instead of BCM pin
         global stepcount
         stepcount = self.comboBox.itemData(index)
+        self.progressBar.setMaximum(stepcount)
         print(stepcount, "this is given step")
         # return stepcount
         Dir = 35
@@ -134,10 +135,12 @@ class Ui_mainWindow(object):
         FastSpeed = 0.0001  # old = 0.001 Change this depends on your stepper motor
         LowSpeed = 0.0001   # old = 0.001 Change this depends on your stepper motor
         counter = 0
+        counterx = 0
         countery = 0
         while True and counter < 1:
             print("Move Up", stepcount, "steps")
             for i in range(stepcount):
+                countery = countery + 1
                 GPIO.output(Dir, 1)
                 GPIO.output(Step, 1)
                 GPIO.output(Dirb, 1)
@@ -146,10 +149,15 @@ class Ui_mainWindow(object):
                 GPIO.output(Step, 0)
                 GPIO.output(Stepb, 0)
                 time.sleep(LowSpeed)
+                self.progressBar.setValue(countery)
             # print ("Moving")
             time.sleep(1)
+            
             print("Move Down", stepcount, "steps")
             for i in range(stepcount):
+               
+                #self.progressBar.setValue(0)
+                counterx = counterx + 1
                 GPIO.output(Dir, 0)
                 GPIO.output(Step, 1)
                 GPIO.output(Dirb, 0)
@@ -158,6 +166,7 @@ class Ui_mainWindow(object):
                 GPIO.output(Step, 0)
                 GPIO.output(Stepb, 0)
                 time.sleep(FastSpeed)
+                self.progressBar.setValue(counterx)
             time.sleep(1)
             counter += 1
             print("success")
