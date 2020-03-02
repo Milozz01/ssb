@@ -18,6 +18,8 @@ EnableLin = 22
 DirDreh = 38
 StepDreh = 36
 EnableDreh = 40
+EnableLinprep = 22
+EnableDrehprep = 40
 countermulti = 0
 GPIO.setup(12, GPIO.OUT)  # Set GPIO pin 12 to output mode.
 GPIO.setup(22, GPIO.OUT)
@@ -27,12 +29,12 @@ dc = 50  # set dc variable to 0 for 0%
 pwm.start(dc)  # Start PWM with 0% duty cycle
 print("pwm default process started")
 
-
 class Ui_mainWindow(object):
-
+    
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
         mainWindow.resize(557, 320)
+
 
         self.centralwidget = QtWidgets.QWidget(mainWindow)
         self.centralwidget.setEnabled(True)
@@ -96,12 +98,11 @@ class Ui_mainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
         self.comboBox.activated.connect(self.handleactivated)
         # buttons ################################################
-        self.pushButton.clicked.connect(lambda: self.runmultimotorsetupv2(index=self.comboBox.currentIndex()),
-                                        countermulti)
+        self.pushButton.clicked.connect(lambda: self.runmultimotorsetupv2(index=self.comboBox.currentIndex()), countermulti)
         self.pushButton_2.clicked.connect(lambda: self.stop())
         self.pushButton_3.clicked.connect(lambda: self.nullpunkt())
         self.pushButton_4.clicked.connect(lambda: self.abbrechen())
-
+    
     def retranslateui(self, mainWindow):
         _translate = QtCore.QCoreApplication.translate
         mainWindow.setWindowTitle(_translate("mainWindow", "Smart Spray Booth - Configuration"))
@@ -116,7 +117,7 @@ class Ui_mainWindow(object):
         self.comboBox.setItemText(2, _translate("mainWindow", "15cm"))
         self.comboBox.setItemText(3, _translate("mainWindow", "20cm"))
         self.comboBox.setItemText(4, _translate("mainWindow", "25cm"))
-        self.comboBox.setItemText(4, _translate("mainWindow", "27cm"))
+        self.comboBox.setItemText(5, _translate("mainWindow", "27cm"))
 
         self.label.setText(_translate("mainWindow", "Bauteilgröße:"))
         self.label_2.setText(_translate("mainWindow", "Bauteilgröße:"))
@@ -142,7 +143,7 @@ class Ui_mainWindow(object):
         fast_speed_lin = 0.00001
         for i in range(1600):
             GPIO.setmode(GPIO.BOARD)
-
+            
             GPIO.setup(DirLin, GPIO.OUT)
             GPIO.setup(StepLin, GPIO.OUT)
             GPIO.setup(EnableLin, GPIO.OUT)
@@ -183,7 +184,7 @@ class Ui_mainWindow(object):
                     print("Kontakt mit Nullstelle erkannt")
                     dc = 25  # set dc variable to 0 for 0%
                     pwm.start(dc)  # Start PWM with 0% duty cycle
-                    # GPIO.cleanup()
+                    #GPIO.cleanup()
                     return
 
                 # self.progressBar.setValue(0)
@@ -220,7 +221,7 @@ class Ui_mainWindow(object):
 
     def runmultimotorsetupv2(self, index):
         # muss noch überarbeitet werden
-
+        
         while True and countermulti < 3:
             pwm = GPIO.PWM(12, 5000)  # Initialize PWM on pwmPin 100Hz frequency
             dc = 80  # set dc variable to 0 for 0%
@@ -312,7 +313,7 @@ class Ui_mainWindow(object):
             sys.exit(app.exec_())
 
     def stepperactiondreh(self, index):
-
+        
         GPIO.setmode(GPIO.BOARD)  # read the pin as board instead of BCM pin
         # global stepcount
         # stepcount = self.comboBox.itemData(index)
@@ -364,8 +365,7 @@ def pwmdefault():
 
 def preparemotoren():
     GPIO.cleanup()
-    EnableLinprep = 22
-    EnableDrehprep = 40
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(EnableLinprep, GPIO.OUT)
     GPIO.setup(EnableDrehprep, GPIO.OUT)
     GPIO.setup(35, GPIO.OUT)  # wtf?
@@ -385,5 +385,6 @@ if __name__ == "__main__":
     mainWindow.show()
     mainWindow.update()
     sys.exit(app.exec_())
+
 
 
