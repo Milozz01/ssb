@@ -115,7 +115,7 @@ class Ui_mainWindow(object):
         self.comboBox.setItemText(2, _translate("mainWindow", "15cm"))
         self.comboBox.setItemText(3, _translate("mainWindow", "20cm"))
         self.comboBox.setItemText(4, _translate("mainWindow", "25cm"))
-        self.comboBox.setItemText(4, _translate("mainWindow", "27cm"))
+        self.comboBox.setItemText(5, _translate("mainWindow", "27cm"))
 
         self.label.setText(_translate("mainWindow", "Bauteilgröße:"))
         self.label_2.setText(_translate("mainWindow", "Bauteilgröße:"))
