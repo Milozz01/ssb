@@ -55,6 +55,7 @@ class Ui_mainWindow(object):
         self.comboBox.addItem("", QVariant(30 * 1600))
         self.comboBox.addItem("", QVariant(40 * 1600))
         self.comboBox.addItem("", QVariant(50 * 1600))
+        self.comboBox.addItem("", QVariant(54 * 1600))
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(20, 30, 121, 31))
         font = QtGui.QFont()
@@ -114,6 +115,7 @@ class Ui_mainWindow(object):
         self.comboBox.setItemText(2, _translate("mainWindow", "15cm"))
         self.comboBox.setItemText(3, _translate("mainWindow", "20cm"))
         self.comboBox.setItemText(4, _translate("mainWindow", "25cm"))
+        self.comboBox.setItemText(4, _translate("mainWindow", "27cm"))
 
         self.label.setText(_translate("mainWindow", "Bauteilgröße:"))
         self.label_2.setText(_translate("mainWindow", "Bauteilgröße:"))
