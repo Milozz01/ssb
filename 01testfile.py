@@ -12,6 +12,8 @@ from PyQt5.QtWidgets import QLabel, QLayout
 
 GPIO.setmode(GPIO.BOARD)
 stepcount = 0
+countermulti = 0
+
 DirLin = 24
 StepLin = 26
 EnableLin = 22
@@ -20,12 +22,14 @@ StepDreh = 36
 EnableDreh = 40
 EnableLinprep = 22
 EnableDrehprep = 40
-countermulti = 0
-GPIO.setup(12, GPIO.OUT)  # Set GPIO pin 12 to output mode.
-GPIO.setup(22, GPIO.OUT)
-GPIO.output(12, GPIO.HIGH)
-pwm = GPIO.PWM(12, 5000)  # Initialize PWM on pwmPin 100Hz frequency
-dc = 50  # set dc variable to 0 for 0%
+pwm_pin = 12
+dc = 50
+
+chan_list = [24, 26, 22, 38, 36, 40, 12]
+GPIO.setup(chan_list, GPIO.OUT)
+
+GPIO.output(pwm_pin, GPIO.HIGH)
+pwm = GPIO.PWM(pwm_pin, 5000)  # Initialize PWM on pwmPin 100Hz frequency
 pwm.start(dc)  # Start PWM with 0% duty cycle
 print("pwm default process started")
 
@@ -143,10 +147,8 @@ class Ui_mainWindow(object):
         fast_speed_lin = 0.00001
         for i in range(1600):
             GPIO.setmode(GPIO.BOARD)
+            GPIO.setup(chan_list, GPIO.OUT)
             
-            GPIO.setup(DirLin, GPIO.OUT)
-            GPIO.setup(StepLin, GPIO.OUT)
-            GPIO.setup(EnableLin, GPIO.OUT)
             GPIO.output(EnableLin, GPIO.HIGH)
             GPIO.output(DirLin, 1)
             GPIO.output(StepLin, 1)
@@ -158,19 +160,15 @@ class Ui_mainWindow(object):
 
     def nullpunkt(self):
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(DirLin, GPIO.OUT)
-        GPIO.setup(StepLin, GPIO.OUT)
-        GPIO.setup(EnableLin, GPIO.OUT)
+        GPIO.setup(chan_list, GPIO.OUT)
+        
         GPIO.output(EnableLin, GPIO.HIGH)
-        GPIO.setmode(GPIO.BOARD)  # Set Pi to use pin number
-        GPIO.setup(12, GPIO.OUT)  # Set GPIO pin 12 to output mode.
-        GPIO.setup(22, GPIO.OUT)
-        GPIO.output(12, GPIO.HIGH)
-        pwm = GPIO.PWM(12, 5000)  # Initialize PWM on pwmPin 100Hz frequency
-        dc = 25  # set dc variable to 0 for 0%
+        GPIO.output(pwm_pin, GPIO.HIGH)
+        pwm = GPIO.PWM(pwm_pin, 5000)  # Initialize PWM on pwmPin 100Hz frequency
+        dc = 25
         pwm.start(dc)  # Start PWM with 0% duty cycle
-        print("pwm default process started")
-
+        
+        print("pwm = 25")
         print("Linearantrieb wird auf NULL gesetzt")
         fast_speed_lin = 0.00001
         while (True):
@@ -353,7 +351,8 @@ class Ui_mainWindow(object):
 
 
 def pwmdefault():
-    GPIO.setmode(GPIO.BOARD)  # Set Pi to use pin number
+    GPIO.cleanup()
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(12, GPIO.OUT)  # Set GPIO pin 12 to output mode.
     GPIO.setup(22, GPIO.OUT)
     GPIO.output(12, GPIO.HIGH)
@@ -364,7 +363,6 @@ def pwmdefault():
 
 
 def preparemotoren():
-    GPIO.cleanup()
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(EnableLinprep, GPIO.OUT)
     GPIO.setup(EnableDrehprep, GPIO.OUT)
@@ -376,8 +374,8 @@ def preparemotoren():
 
 
 if __name__ == "__main__":
-    preparemotoren()
     pwmdefault()
+    preparemotoren()
     app = QtWidgets.QApplication(sys.argv)
     mainWindow = QtWidgets.QMainWindow()
     ui = Ui_mainWindow()
