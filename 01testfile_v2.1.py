@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import QLabel, QLayout
 
 # countermulti = 0
 GPIO.setmode(GPIO.BOARD)
-
+GPIO.cleanup()
 stepcount = 0
 DirLin = 24
 StepLin = 26
@@ -352,7 +352,6 @@ class Ui_mainWindow(object):
 
 
 def pwmdefault():
-    GPIO.cleanup()
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(chan_list, GPIO.OUT)
     GPIO.output(pwm_pin, GPIO.HIGH)
