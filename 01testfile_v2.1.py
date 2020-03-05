@@ -23,7 +23,7 @@ EnableDreh = 40
 EnableLinprep = 22
 EnableDrehprep = 40
 pwm_pin = 12
-input = 11
+gpio_input = 11
 dc_25 = 25
 dc_50 = 50
 dc_80 = 80
@@ -178,8 +178,8 @@ class Ui_mainWindow(object):
 
             for i in range(50 * 3600):
                 GPIO.setmode(GPIO.BOARD)
-                GPIO.setup(input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-                if GPIO.input(input) == GPIO.LOW:
+                GPIO.setup(gpio_input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+                if GPIO.input(gpio_input) == GPIO.LOW:
                     QtCore.QCoreApplication.processEvents()
                     print("Kontakt mit Nullstelle erkannt")
                     
@@ -200,8 +200,8 @@ class Ui_mainWindow(object):
                 time.sleep(fast_speed_lin)
 
     def gpiostop(self):
-        GPIO.setup(input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        if GPIO.input(input) == GPIO.LOW:
+        GPIO.setup(gpio_input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        if GPIO.input(gpio_input) == GPIO.LOW:
             print("SIGNAL EINGEKOMMEN")
             GPIO.cleanup()
             sys.exit(app.exec_())
@@ -220,8 +220,8 @@ class Ui_mainWindow(object):
     def runmultimotorsetupv2(self, index, countermulti=0):
         # muss noch überarbeitet werden
         while True and countermulti < 4:
-            GPIO.setup(input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-            if GPIO.input(input) == GPIO.LOW:
+            GPIO.setup(gpio_input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+            if GPIO.input(gpio_input) == GPIO.LOW:
                 QtCore.QCoreApplication.processEvents()
                 GPIO.cleanup()
                 sys.exit("Kontakt mit Nullstelle erkannt")
@@ -260,8 +260,8 @@ class Ui_mainWindow(object):
                     # GPIO.cleanup()
                     GPIO.setmode(GPIO.BOARD)
                     GPIO.setup(chan_list, GPIO.OUT)
-                    GPIO.setup(input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-                    if GPIO.input(input) == GPIO.LOW:
+                    GPIO.setup(gpio_input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+                    if GPIO.input(gpio_input) == GPIO.LOW:
                         print("Kontakt mit Nullstelle erkannt")
                         return
 
@@ -282,8 +282,8 @@ class Ui_mainWindow(object):
                 for i in range(stepcount):
                     GPIO.setmode(GPIO.BOARD)
                     GPIO.setup(chan_list, GPIO.OUT)
-                    GPIO.setup(input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-                    if GPIO.input(input) == GPIO.LOW:
+                    GPIO.setup(gpio_input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+                    if GPIO.input(gpio_input) == GPIO.LOW:
                         QtCore.QCoreApplication.processEvents()
                         GPIO.cleanup()
                         # sys.exit("Kontakt mit Nullstelle erkannt")
