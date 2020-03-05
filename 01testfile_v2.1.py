@@ -35,7 +35,7 @@ GPIO.setup(chan_list, GPIO.OUT)
 
 GPIO.output(pwm_pin, GPIO.HIGH)
 pwm = GPIO.PWM(pwm_pin, 5000)  # Initialize PWM on pwmPin frequency
-pwm.start(50)
+pwm.start(dc_50)
 print("pwm default process started")
 
 
