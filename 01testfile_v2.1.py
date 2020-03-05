@@ -318,10 +318,9 @@ class Ui_mainWindow(object):
     def stepperactiondreh(self):
 
         GPIO.setmode(GPIO.BOARD)  # read the pin as board instead of BCM pin
-        # global stepcount
-        # stepcount = self.comboBox.itemData(index)
+
         stepcountdreh = 400
-        self.progressBar.setMaximum(stepcount)
+        #self.progressBar.setMaximum(stepcount)
         print(stepcountdreh, "this is given step on DREH")
 
         GPIO.setwarnings(False)
@@ -343,7 +342,7 @@ class Ui_mainWindow(object):
                 GPIO.output(StepDreh, 0)
                 time.sleep(fast_speed_dreh)
                 # self.progressBar.setValue(countery)
-            # print ("Moving")
+
             time.sleep(0.5)
 
             counter += 1
