@@ -10,10 +10,10 @@ from PyQt5.QtCore import QVariant, QSize
 from PyQt5.QtGui import QPalette, QBrush, QImage, QPixmap
 from PyQt5.QtWidgets import QLabel, QLayout
 
-GPIO.setmode(GPIO.BOARD)
-stepcount = 0
 # countermulti = 0
+GPIO.setmode(GPIO.BOARD)
 
+stepcount = 0
 DirLin = 24
 StepLin = 26
 EnableLin = 22
@@ -29,9 +29,8 @@ dc_50 = 50
 dc_80 = 80
 fast_speed_lin = 0.00001
 fast_speed_dreh = 0.001  # old = 0.001
-
-
 chan_list = [24, 26, 22, 38, 36, 40, 12]
+
 GPIO.setup(chan_list, GPIO.OUT)
 
 GPIO.output(pwm_pin, GPIO.HIGH)
@@ -149,7 +148,7 @@ class Ui_mainWindow(object):
         sys.exit()
 
     def abbrechen(self):
-        print("release nullstelle")
+        print("release nullstelle aktiviert")
         
         for i in range(1600):
             GPIO.setmode(GPIO.BOARD)
