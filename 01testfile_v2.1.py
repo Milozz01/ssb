@@ -358,8 +358,8 @@ def pwmdefault():
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(chan_list, GPIO.OUT)
     GPIO.output(pwm_pin, GPIO.HIGH)
-    #pwm.start(dc_50)  # Start PWM with 0% duty cycle
-    print("pwm default process started")
+    pwm.start(dc_50)
+    print("pwm default process started", dc_50)
 
 
 def preparemotoren():
