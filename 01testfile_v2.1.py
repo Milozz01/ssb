@@ -169,7 +169,7 @@ class Ui_mainWindow(object):
         GPIO.output(EnableLin, GPIO.HIGH)
         GPIO.output(pwm_pin, GPIO.HIGH)
         pwm.start(dc_25)
-        print("pwm = 25")
+        print("pwm = ", dc_25)
         print("Linearantrieb wird auf NULL gesetzt")
         
         while True:
