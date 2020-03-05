@@ -323,7 +323,6 @@ class Ui_mainWindow(object):
         #self.progressBar.setMaximum(stepcount)
         print(stepcountdreh, "this is given step on DREH")
 
-        GPIO.setwarnings(False)
         GPIO.setup(chan_list, GPIO.OUT)
         GPIO.output(EnableDreh, GPIO.HIGH)
 
