@@ -27,7 +27,7 @@ gpio_input = 11
 dc_25 = 25
 dc_50 = 50
 dc_80 = 80
-fast_speed_lin = 0.00001
+fast_speed_lin = 0.00001 # old = 0.001
 fast_speed_dreh = 0.001  # old = 0.001
 chan_list = [24, 26, 22, 38, 36, 40, 12]
 
@@ -226,7 +226,7 @@ class Ui_mainWindow(object):
                 sys.exit("Kontakt mit Nullstelle erkannt")
                 return
             else:
-                pwm.start(dc_80)  # Start PWM
+                pwm.start(dc_80)  # Start PWM at dutycycle
                 time.sleep(0.5)
                 thread2 = threading.Thread(target=self.stepperactionlinear(index))
                 thread2.start()
@@ -237,7 +237,7 @@ class Ui_mainWindow(object):
                 countermulti += 1
 
     def stepperactionlinear(self, index):
-        GPIO.setmode(GPIO.BOARD)  # read the pin as board instead of BCM pin
+        GPIO.setmode(GPIO.BOARD)
         global stepcount
         stepcount = self.comboBox.itemData(index)
         #self.progressBar.setMaximum(stepcount)
@@ -279,7 +279,7 @@ class Ui_mainWindow(object):
                     progressCounter += 25
                     self.progressBar.setValue(progressCounter)
                     # self.progressBar.setValue(countery)
-                    # print("Moving")
+                    
                 
                 time.sleep(1)
 
@@ -316,8 +316,7 @@ class Ui_mainWindow(object):
             sys.exit(app.exec_())
 
     def stepperactiondreh(self):
-
-        GPIO.setmode(GPIO.BOARD)  # read the pin as board instead of BCM pin
+        GPIO.setmode(GPIO.BOARD)
 
         stepcountdreh = 400
         #self.progressBar.setMaximum(stepcount)
