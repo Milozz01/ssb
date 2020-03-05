@@ -356,8 +356,6 @@ def pwmdefault():
 
 def preparemotoren():
     GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(35, GPIO.OUT)  # wtf?
-    GPIO.output(35, GPIO.HIGH)  # wtf?
     GPIO.output(EnableLin, GPIO.LOW)
     GPIO.output(EnableDreh, GPIO.LOW)
     print("Motoren wurden entsperrt")
