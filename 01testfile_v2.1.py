@@ -241,7 +241,8 @@ class Ui_mainWindow(object):
         GPIO.setmode(GPIO.BOARD)  # read the pin as board instead of BCM pin
         global stepcount
         stepcount = self.comboBox.itemData(index)
-        self.progressBar.setMaximum(stepcount)
+        #self.progressBar.setMaximum(stepcount)
+        self.progressBar.setMaximum(100)
         print(stepcount, "this is given step")
 
         GPIO.setup(chan_list, GPIO.OUT)
@@ -250,6 +251,7 @@ class Ui_mainWindow(object):
         counter = 0
         # counterx = 0
         # countery = 0
+        progressCounter = 0
         counterz = 1
         if counterz == 1:
             while True and counter < 1:
@@ -274,8 +276,12 @@ class Ui_mainWindow(object):
 
                     GPIO.output(StepLin, 0)
                     time.sleep(fast_speed_lin)
+                    
+                    progressCounter += 25
+                    self.progressBar.setValue(progressCounter)
                     # self.progressBar.setValue(countery)
                     # print("Moving")
+                
                 time.sleep(1)
 
                 print("LINEAR: Move Down", stepcount, "steps")
@@ -298,6 +304,9 @@ class Ui_mainWindow(object):
 
                     GPIO.output(StepLin, 0)
                     time.sleep(fast_speed_lin)
+                    
+                    progressCounter += 25
+                    self.progressBar.setValue(progressCounter)
                     # self.progressBar.setValue(counterx)
                 time.sleep(1)
                 counter += 1
